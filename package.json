@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.4",
-    "next-share": "^0.27.0",
     "react": "^18",
     "react-dom": "^18"
   },
