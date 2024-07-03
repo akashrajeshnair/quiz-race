@@ -18,7 +18,7 @@ const LoginComponent = () =>{
             </div>
             <button className={styles.btn} type="submit">Login</button>
             <div className="register-link">
-                <p>Don't have an Account? <a href="#">Register</a></p>
+                <p>Don't have an Account? <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register</a></p>
             </div>
         </form>
         </div>
