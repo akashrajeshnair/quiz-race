@@ -1,8 +1,34 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-const inter = Inter({ subsets: ["latin"] });
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps>=({children})=> {
+  return (
+    <html>
+      <body>
+    <div className="container">
+      <head>
+        <title>Quiz App</title>
+        <meta name="description" content="Quiz App"/>
+      </head>
+      <Header/>
+      <main className="main">{children}</main>
+      <Footer/>
+    </div>
+    </body>
+    </html>
+  );
+};
+
+export default Layout;
+
+/*const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,3 +46,4 @@ export default function RootLayout({
     </html>
   );
 }
+*/
