@@ -1,0 +1,77 @@
+/* QuizPage.module.css */
+
+/* Quiz Holder Styles */
+
+.quizHolder {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quizHolder h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .quizHolder h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .quizHolder input[type="text"],
+  .quizHolder select,
+  .quizHolder input[type="radio"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+  }
+  
+  .quizHolder input[type="text"]:focus,
+  .quizHolder select:focus,
+  .quizHolder input[type="radio"]:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quizHolder label {
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .quizHolder input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #337ab7;
+  }
+  
+  .quizHolder .button {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .quizHolder .button:hover {
+    background-color: #23527c;
+  }
+  
+  .quizHolder .button:active {
+    background-color: #1d4f7a;
+  }
+  
+  /* Responsive Styles */
+  
+  @media (max-width: 600px) {
+    .quizHolder {
+      margin: 20px;
+    }
+    .quizHolder input[type="text"],
+    .quizHolder select {
+      width: 100%;
+    }
+  }
