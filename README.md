@@ -13,7 +13,7 @@ Features to be implemented:
 Frontend: 
 - NextJS - Full Stack Framework - Routing, Authentication
 - TailwindCSS - UI Library
-- Prima - Object Relational Mapper to communicate with database
+- Prisma - Object Relational Mapper to communicate with database
 - Web socket package(ws / Socket.io) - real-time functionality
 
 Backend:
