@@ -7,14 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "devStart" : "nodemon script.ts"
+    "devStart": "nodemon script.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.16.1",
     "ably": "^2.2.1",
+    "firebase": "^10.12.3",
+    "next": "14.2.4",
+    "next-share": "^0.27.0",
     "react": "^18",
     "react-dom": "^18",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "unique-names-generator": "^4.7.1",
+    "vercel": "^34.3.0"
   },
   "devDependencies": {
     "@types/node": "^20",
