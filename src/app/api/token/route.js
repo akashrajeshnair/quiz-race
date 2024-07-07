@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import Ably from 'ably';
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 
-export async function GET() {
+export default async function GET() {
   const client = new Ably.Rest(process.env.ABLY_CLIENT_API_KEY);
 
   const randomName = uniqueNamesGenerator({
