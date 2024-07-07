@@ -1,10 +1,10 @@
 // McqComponent.js
 import React from 'react';
-import McqComponent from '@/app/(components)/MCQComponent.module.css';
+import styles from '@/app/(components)/Quiz/MCQComponent.module.css';
 
 const MCQComponent = ({ question, options, onSelect }) => {
   return (
-    <div>
+    <div className={styles.mcqComponent}>
       <p>{question}</p>
       {options.map((option, index) => (
         <div key={index}>

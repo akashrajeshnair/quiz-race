@@ -3,11 +3,13 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, NextOrObserver
 
 const auth = getAuth(app)
 
-export function onAuthenticationStateChanged(cb: NextOrObserver<User>) {
+export {auth}
+
+export function checkAuthState(cb) {
     return onAuthStateChanged(auth, cb);
 }
 
-export async function logIn(email: string, password: string) {
+export async function logIn(email, password) {
     try{
         await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
@@ -23,7 +25,7 @@ export async function logOut() {
     }
 }
 
-export async function createUser(email: string, password: string) {
+export async function createUser(email, password) {
     try {
         await createUserWithEmailAndPassword(auth, email, password);
     } catch(error) {
