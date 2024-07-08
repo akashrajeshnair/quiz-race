@@ -12,17 +12,16 @@ const Header: React.FC = () => {
             <nav className={styles.nav}>
                 <ul>
                     <li>
-                        {user ? (
-                            <Link href="/home">Home</Link>
-                        ) : (
-                            <Link href="/">Home</Link>
-                        )}
+                        <Link href="/">Home</Link>
                     </li>
                     <li>
                         <Link href="/quiz" id="quiz-id">Quiz</Link>
                     </li>
                     <li>
                         <Link href="/leaderboard" id="leaderboard-id">Leaderboard</Link>
+                    </li>
+                    <li>
+                        <Link href="/createquiz" id="leaderboard-id">Create Quiz</Link>
                     </li>
                     <li>
                         {user ? (

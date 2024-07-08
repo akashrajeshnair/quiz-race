@@ -15,7 +15,7 @@ const LoginComponent = () =>{
 
     useEffect(() => {
         if (user) {
-            router.push('/home');
+            router.push('/');
         }
     }, [user, router]);
     
@@ -23,7 +23,7 @@ const LoginComponent = () =>{
         e.preventDefault();
         try {
           await signIn(email, password);
-          router.push('/home');
+          router.push('/');
         } catch (err) {
           console.log(err)
         }

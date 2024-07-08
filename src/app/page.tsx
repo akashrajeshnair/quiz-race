@@ -1,6 +1,7 @@
 "use client"
 
 import styles from '@/app/home.module.css'
+import Image from 'next/image';
 
 export default function Root() {
 
@@ -12,7 +13,7 @@ export default function Root() {
           <p className={styles.p__opensans}>Test your knowledge across various topics and compete with others. Get ready to embark on a journey of fun and learning!</p>
         </div>
         <div className={styles.appWrapperImg}>
-          <p>HELLO</p>
+          <Image src={'/images.jpg'} alt='a classroom with students' width={600} height={650} quality={100}/>
         </div>
       </div>
     );

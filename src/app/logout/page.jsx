@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import styles from '@/app/logout/logout.module.css'
 import { UserAuth } from "@/lib/firebase/authContext";
 
 export default function Logout() {
@@ -18,25 +18,17 @@ export default function Logout() {
     }
   }
 
+  const handleReturn = () => {
+    router.push('/');
+  }
+
   console.log(user)
 
   return (
-    <div className="logout-page">
-      <button onClick={handleLogout}>Logout</button>
-      <style jsx>{`
-        .logout-page {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          background-color: #f0f0f0;
-        }
-        h1 {
-          font-size: 24px;
-          color: #333;
-        }
-      `}</style>
+    <div className={styles.logoutPage}>
+      <h3>Are you sure you want to logout?</h3>
+      <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+      <button onClick={handleReturn} className={styles.logoutButton}>Return</button>
     </div>
   );
 }

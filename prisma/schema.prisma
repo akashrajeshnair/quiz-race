@@ -9,12 +9,50 @@ generator client {
 }
 
 datasource db {
+
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+
 }
 
 model User{
-  id Int @id @default(autoincrement())
-  username String
-  password String
+  u_id Int @id @default(autoincrement())
+  email String
+  Quizzes Quiz[]
+  Statistics UserStatistics[]
 }
+
+model Quiz{
+  q_id Int @id @default(autoincrement())
+  title String
+  description String
+  user User @relation(fields: [u_id], references: [u_id])
+  u_id Int
+  Questions Question[]
+  Statistics UserStatistics[]
+}
+
+model Question{
+  quest_id Int @id @default(autoincrement())
+  question_text String
+  answer String
+  options String
+  type String
+  quiz Quiz @relation(fields: [q_id], references: [q_id])
+  q_id Int
+}
+
+model UserStatistics {
+  s_id Int @id @default(autoincrement())
+  score Int
+  correct Int
+  incorrect Int
+  user User @relation(fields: [u_id], references: [u_id])
+  u_id Int
+  quiz Quiz @relation(fields: [q_id], references: [q_id])
+  q_id Int
+}
+
