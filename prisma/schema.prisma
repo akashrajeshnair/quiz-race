@@ -19,7 +19,7 @@ datasource db {
 }
 
 model User{
-  u_id Int @id @default(autoincrement())
+  u_id String @id 
   email String
   Quizzes Quiz[]
   Statistics UserStatistics[]
@@ -30,7 +30,7 @@ model Quiz{
   title String
   description String
   user User @relation(fields: [u_id], references: [u_id])
-  u_id Int
+  u_id String
   Questions Question[]
   Statistics UserStatistics[]
 }
@@ -51,7 +51,7 @@ model UserStatistics {
   correct Int
   incorrect Int
   user User @relation(fields: [u_id], references: [u_id])
-  u_id Int
+  u_id String
   quiz Quiz @relation(fields: [q_id], references: [q_id])
   q_id Int
 }

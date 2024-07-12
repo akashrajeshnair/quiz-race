@@ -21,9 +21,6 @@ const Header: React.FC = () => {
                         <Link href="/leaderboard" id="leaderboard-id">Leaderboard</Link>
                     </li>
                     <li>
-                        <Link href="/createquiz" id="leaderboard-id">Create Quiz</Link>
-                    </li>
-                    <li>
                         {user ? (
                             <Link href="/logout" id="logout-id">Logout</Link>
                         ) : (

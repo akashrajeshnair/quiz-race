@@ -39,9 +39,6 @@ const LoginComponent = () =>{
             <div className={styles.inputBox}>
                 <input type="password" placeholder="Password" required className={styles.inputArea} onChange={(e) => setPassword(e.target.value)}/>
             </div>
-            <div className={styles.rememberForgot}>
-                <a href="#">Forgot password</a>
-            </div>
             <button className={styles.btn} type="submit">Login</button>
             <div className="register-link">
                 <p>Don't have an Account? <a href="/register">Register</a></p>

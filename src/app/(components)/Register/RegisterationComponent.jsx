@@ -1,31 +1,51 @@
 "use client";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "@/app/(components)/Register/RegisterationComponent.module.css";
 import { UserAuth } from "@/lib/firebase/authContext";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 const RegisterationComponent = () => {
-
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const {createUser} = UserAuth();
+  const { createUser } = UserAuth();
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
     try {
-      createUser(email, password);
-      console.log("created new user successfully")
-      router.push('/home')
-    } catch(error) {
-      console.error(error);
+      const userCredential = await createUser(email, password);
+      const user = userCredential.user;
+
+      await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          u_id: user.uid,
+          email: user.email,
+        }),
+      });
+
+      console.log("User added to database successfully");
+      router.push('/');
+    } catch (error) {
+      console.error("Error during registration:", error);
+      setError(error.message);
     }
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Register</h1>
+      {error && <p className={styles.error}>{error}</p>}
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label} htmlFor="email">
           Email

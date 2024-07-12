@@ -3,47 +3,33 @@
 import React from 'react';
 import QuizComponent from '../../(components)/Quiz/QuizComponent';
 import ProtectedRoute from '../../(components)/ProtectedRoutes/ProtectedRoutes'
+import { UserAuth } from '@/lib/firebase/authContext';
 import { usePathname } from 'next/navigation';
-
-const questions = [
-  {
-    type: 'mcq',
-    question: 'What is the capital of France?',
-    options: ['Paris', 'London', 'Rome', 'Berlin'],
-  },
-  {
-    type: 'match',
-    question: 'Match the countries to their capitals.',
-    questions: ['France', 'England', 'Italy'],
-    options: ['Paris', 'London', 'Rome'],
-  },
-  {
-    type: 'blank',
-    question: 'The capital of Germany is _____',
-    answer: '',
-  },
-];
+import styles from '@/app/quiz/[id]/quiz.module.css'
 
 export default function Quizzes() {
+  const {user} = UserAuth();
   const path = usePathname();
   console.log(path)
 
   function getLastSegment(inputString : string|null) {
-    // Split the string by '/' and return the last element
-    const segments = inputString?.split('/');
-    return segments?.pop();
+      const segments = inputString?.split('/');
+      return Number(segments?.pop()); // Ensure the last segment is converted to an integer
   }
   
   // Example usage:
   const inputString = path
   const slug = getLastSegment(inputString);
   console.log(slug); // Outputs: "text"
+  console.log(user.userid)
   
 
   return (
     <div>
       <ProtectedRoute>
-        <QuizComponent quizId={slug}/>
+        <div className={styles.container}>
+        <QuizComponent quizId={slug} userId={user.uid}/>
+        </div>
       </ProtectedRoute>
     </div>
   );

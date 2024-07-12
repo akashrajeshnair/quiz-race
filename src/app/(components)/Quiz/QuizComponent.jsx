@@ -2,19 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import MCQComponent from '@/app/(components)/Quiz/MCQComponent';
-import MatchComponent from '@/app/(components)/Quiz/Match_the_FollowingComponent';
 import BlankComponent from '@/app/(components)/Quiz/FillInTheBlanksComponent';
 import Scoreboard from '@/app/(components)/Scoreboard/Scoreboard';
 import styles from './QuizComponent.module.css';
 
-const QuizComponent = ({ quizId }) => {
+const QuizComponent = ({ quizId, userId }) => {
   const [quiz, setQuiz] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
-  const [players, setPlayers] = useState([]);
   const [playerScore, setPlayerScore] = useState(0);
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [incorrectAnswers, setIncorrectAnswers] = useState(0);
+  const [totalTimeTaken, setTotalTimeTaken] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,29 +40,65 @@ const QuizComponent = ({ quizId }) => {
     setAnswers(newAnswers);
   };
 
-  const handleMatchSelect = (questionIndex, matchIndex, answer) => {
-    const newAnswers = [...answers];
-    if (!newAnswers[questionIndex]) {
-      newAnswers[questionIndex] = [];
-    }
-    newAnswers[questionIndex][matchIndex] = answer;
-    setAnswers(newAnswers);
-  };
-
   const handleSubmit = () => {
-    if (currentQuestion.correct_answer === answers[currentQuestionIndex]) {
+    console.log('Answers:', answers);
+    console.log('Current Question:', currentQuestion);
+    console.log('Current Question Index:', currentQuestionIndex);
+
+    const playerAnswer = answers[currentQuestionIndex];
+    const correctAnswer = currentQuestion.answer;
+
+    console.log('Player Answer:', playerAnswer);
+    console.log('Correct Answer:', correctAnswer);
+
+    setQuestionsAnswered(questionsAnswered + 1);
+    setTotalTimeTaken(totalTimeTaken + (30 - timeLeft));
+
+    if (playerAnswer === correctAnswer) {
+      console.log('Correct Answer! Adding 50 points.');
       setPlayerScore(playerScore + 50);
+      setCorrectAnswers(correctAnswers + 1);
+    } else {
+      console.log('Incorrect Answer. No points added.');
+      setIncorrectAnswers(incorrectAnswers + 1);
     }
+
     setShowLeaderboard(true);
   };
 
   const goToNextQuestion = () => {
     setShowLeaderboard(false);
     setTimeLeft(30);
+
+    // Check if the quiz is completed
     if (currentQuestionIndex < quiz.Questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       alert('Quiz Completed!');
+      // Post the results to the backend
+      fetch('/api/results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          quizId,
+          userId,
+          playerScore,
+          correctAnswers,
+          incorrectAnswers,
+          questionsAnswered,
+          totalTimeTaken,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Results submitted:', data);
+        router.push('/leaderboard');
+      })
+      .catch(error => {
+        console.error('Error submitting results:', error);
+      });
     }
   };
 
