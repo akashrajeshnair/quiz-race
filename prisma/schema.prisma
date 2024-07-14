@@ -23,6 +23,7 @@ model User{
   email String
   Quizzes Quiz[]
   Statistics UserStatistics[]
+  isAdmin Boolean @default(false)
 }
 
 model Quiz{

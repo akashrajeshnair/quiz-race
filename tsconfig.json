@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/firebase/auth.js", "src/app/home/page.jsx", "src/app/leaderboard/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/firebase/auth.js", "src/app/home/page.jsx", "src/app/leaderboard/page.jsx", "src/app/quiz/create/page.jsx"],
   "exclude": ["node_modules"]
 }

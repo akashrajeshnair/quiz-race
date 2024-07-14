@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { UserAuth } from '@/lib/firebase/authContext'
 import { useEffect } from 'react'
 
-const ProtectedRoute = ({children}) => {
+const ProtectedUserRoute = ({children}) => {
     const router = useRouter();
     const {user} = UserAuth();
 
@@ -18,4 +18,4 @@ const ProtectedRoute = ({children}) => {
     return children;
 }
 
-export default ProtectedRoute;
+export default ProtectedUserRoute;
