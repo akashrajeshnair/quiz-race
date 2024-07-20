@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './Scoreboard.module.css';
 
-const Scoreboard = ({ players }) => {
+const Scoreboard = ({players}) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Scoreboard</h2>
@@ -17,7 +17,7 @@ const Scoreboard = ({ players }) => {
           {players.map((player, index) => (
             <tr key={index}>
               <td className={styles.td}>{player.name}</td>
-              <td className={styles.td}>{player.points}</td>
+              <td className={styles.td}>{player.score}</td>
             </tr>
           ))}
         </tbody>

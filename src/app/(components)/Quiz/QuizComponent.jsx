@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import MCQComponent from '@/app/(components)/Quiz/MCQComponent';
 import BlankComponent from '@/app/(components)/Quiz/FillInTheBlanksComponent';
 import Scoreboard from '@/app/(components)/Scoreboard/Scoreboard';
+import { updateScore, getScoreboard } from '@/lib/firebase/database';
 import styles from './QuizComponent.module.css';
 
 const QuizComponent = ({ quizId, userId }) => {
@@ -13,6 +14,7 @@ const QuizComponent = ({ quizId, userId }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [playerScore, setPlayerScore] = useState(0);
+  const [scoreboardData, setScoreboardData] = useState([]);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
@@ -58,10 +60,13 @@ const QuizComponent = ({ quizId, userId }) => {
       console.log('Correct Answer! Adding 50 points.');
       setPlayerScore(playerScore + 50);
       setCorrectAnswers(correctAnswers + 1);
+      updateScore(quizId, userId, playerScore);
     } else {
       console.log('Incorrect Answer. No points added.');
       setIncorrectAnswers(incorrectAnswers + 1);
     }
+
+    
 
     setShowLeaderboard(true);
   };
@@ -145,9 +150,11 @@ const QuizComponent = ({ quizId, userId }) => {
   }
 
   if (showLeaderboard) {
+    getScoreboard(quizId).then(data => setScoreboardData(data))
+    console.log(scoreboardData)
     return (
       <div className={styles.leaderboardContainer}>
-        <Scoreboard players={[{ name: "Player", points: playerScore }]} />
+        <Scoreboard players={scoreboardData} />
         <button onClick={goToNextQuestion} className={styles.nextButton}>
           Next Question
         </button>

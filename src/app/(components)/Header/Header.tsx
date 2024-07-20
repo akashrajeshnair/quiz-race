@@ -22,7 +22,7 @@ const Header: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uid: user.uid }), // assuming user has a uid property
+        body: JSON.stringify({ uid: user.uid }),
       });
 
       const data = await response.json();
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
               <Link href="/quiz/create">Create Quiz</Link>
             </li>
             <li>
-              <Link href="/start-quiz">Start Quiz</Link>
+              <Link href="/quiz/start">Start Quiz</Link>
             </li>
             <li>
               <Link href="/logout" id="logout-id">Logout</Link>

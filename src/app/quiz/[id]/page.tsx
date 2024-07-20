@@ -14,13 +14,12 @@ export default function Quizzes() {
 
   function getLastSegment(inputString : string|null) {
       const segments = inputString?.split('/');
-      return Number(segments?.pop()); // Ensure the last segment is converted to an integer
+      return Number(segments?.pop()); 
   }
   
-  // Example usage:
   const inputString = path
   const slug = getLastSegment(inputString);
-  console.log(slug); // Outputs: "text"
+  console.log(slug); 
   console.log(user.userid)
   
 

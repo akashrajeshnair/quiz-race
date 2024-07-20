@@ -34,6 +34,7 @@ model Quiz{
   u_id String
   Questions Question[]
   Statistics UserStatistics[]
+  RunningStatus Boolean @default(false)
 }
 
 model Question{

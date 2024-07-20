@@ -9,6 +9,9 @@ export default async function handler(req, res) {
 
   try {
     const quizzes = await prisma.quiz.findMany({
+      where: {
+        RunningStatus: true,
+      },
       include: {
         Questions: true,
       },
