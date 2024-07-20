@@ -2,7 +2,7 @@
 "use client"
 import React from 'react';
 import QuizComponent from '../../(components)/Quiz/QuizComponent';
-import ProtectedRoute from '../../(components)/ProtectedRoutes/ProtectedUserRoutes'
+import ProtectedUserRoute from '../../(components)/ProtectedRoutes/ProtectedUserRoutes'
 import { UserAuth } from '@/lib/firebase/authContext';
 import { usePathname } from 'next/navigation';
 import styles from '@/app/quiz/[id]/quiz.module.css'
@@ -26,11 +26,11 @@ export default function Quizzes() {
 
   return (
     <div>
-      <ProtectedRoute>
+      <ProtectedUserRoute>
         <div className={styles.container}>
         <QuizComponent quizId={slug} userId={user.uid}/>
         </div>
-      </ProtectedRoute>
+      </ProtectedUserRoute>
     </div>
   );
 }

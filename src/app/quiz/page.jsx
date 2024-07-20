@@ -3,7 +3,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import ProtectedRoute from '../(components)/ProtectedRoutes/ProtectedUserRoutes'
+import ProtectedUserRoute from '../(components)/ProtectedRoutes/ProtectedUserRoutes'
 import styles from './quizzes.module.css';
 
 const Quizzes = () => {
@@ -22,7 +22,7 @@ const Quizzes = () => {
   };
 
   return (
-    <ProtectedRoute>
+    <ProtectedUserRoute>
     <div className={styles.container}>
       <h1>Available Quizzes</h1>
       <table className={styles.table}>
@@ -48,7 +48,7 @@ const Quizzes = () => {
         </tbody>
       </table>
     </div>
-    </ProtectedRoute>
+    </ProtectedUserRoute>
   );
 };
 
