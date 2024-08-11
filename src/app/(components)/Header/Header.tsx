@@ -76,14 +76,6 @@ const Header: React.FC = () => {
                 <Link href="/login" id="login-id">Login</Link>
               )}
             </li>
-            {user && (
-              <li>
-                <button onClick={handleMakeAdmin} disabled={loading}>
-                  {loading ? 'Processing...' : 'Become Admin'}
-                </button>
-                {message && <p>{message}</p>}
-              </li>
-            )}
           </ul>
         )}
       </nav>
@@ -95,3 +87,12 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+// {user && (
+//   <li>
+//     <button onClick={handleMakeAdmin} disabled={loading}>
+//       {loading ? 'Processing...' : 'Become Admin'}
+//     </button>
+//     {message && <p>{message}</p>}
+//   </li>
+// )}
