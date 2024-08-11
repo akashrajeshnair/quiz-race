@@ -1,22 +1,32 @@
 "use client"
-import { useState } from 'react';
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { UserAuth } from '@/lib/firebase/authContext';
+import { storage } from '@/lib/firebase/firebase'; // Make sure to import Firebase storage
+import { ref, uploadBytes, getDownloadURL, updateMetadata } from 'firebase/storage'; // Firebase storage functions
 import styles from './createquiz.module.css';
 
-const defaultOptions = ['', '', '', ''];
+const defaultOptions = ['1', '2', '3', '4'];
 
 export default function CreateQuiz() {
   const router = useRouter();
-  let {user} = UserAuth();
+  let { user } = UserAuth();
   user = user.uid;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [questions, setQuestions] = useState([]);
+  const [quizNum, setQuizNum] = useState();
+
+  useEffect(() => {
+    fetch('/api/numberOfQuizzes')
+      .then((response) => response.json())
+      .then((data) => {console.log(data); setQuizNum(data)})
+      .catch((error) => console.error('Error fetching quizzes:', error));
+  }, [])
 
   const handleAddQuestion = (type) => {
-    if (type === 'MCQ') {
-      setQuestions([...questions, { type, question: '', options: [...defaultOptions], answer: '' }]);
+    if (type === 'MCQ' || type === 'MCQMedia') {
+      setQuestions([...questions, { type, question: '', options: [...defaultOptions], answer: '', media: [], mediaLink: '' }]);
     } else {
       setQuestions([...questions, { type, question: '', answer: '' }]);
     }
@@ -34,6 +44,37 @@ export default function CreateQuiz() {
     setQuestions(newQuestions);
   };
 
+  const handleMediaChange = async (index, file, option) => {
+    const newQuestions = [...questions];
+    if (!newQuestions[index].media){
+      newQuestions[index].media = [];
+    }
+    console.log(file.name)
+    newQuestions[index].media[option] = file;
+    setQuestions(newQuestions);
+    console.log(questions);
+  };
+
+  const uploadMedia = async (qIndex) => {
+    const newQuestions = [...questions];
+    let count = 0
+    for (let media in newQuestions[qIndex].media) {
+      const storageRef = ref(storage, 'media/' + (quizNum+ 1) + "/" + qIndex + "/" + newQuestions[qIndex].media[count].name);
+      // const newMetadata = {
+      //   contentType: 'image/jpeg'
+      // }
+      await uploadBytes(storageRef, newQuestions[qIndex].media[count]);
+      const downloadURL = await getDownloadURL(storageRef);
+      if (newQuestions[qIndex].mediaLink === "")
+        newQuestions[qIndex].mediaLink = downloadURL;
+      else
+        newQuestions[qIndex].mediaLink = newQuestions[qIndex].mediaLink + "," + downloadURL;
+      count++;
+    }
+    setQuestions(newQuestions)
+    console.log(newQuestions[qIndex].mediaLink)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch('/api/createquiz', {
@@ -46,7 +87,7 @@ export default function CreateQuiz() {
     if (res.ok) {
       // Handle successful submission
       console.log('Quiz created successfully');
-      router.push('/home');
+      router.push('/quiz/start');
     } else {
       // Handle error
       console.error('Error creating quiz');
@@ -105,6 +146,26 @@ export default function CreateQuiz() {
                   ))}
                 </div>
               )}
+              {q.type === 'MCQMedia' && (
+                <>
+                  <div className={styles.options}>
+                    {q.options.map((option, oIndex) => (
+                      
+                      <label key={oIndex} className={styles.label}>
+                        Option {oIndex + 1}:
+                        <input
+                          type="file"
+                          onChange={(e) => handleMediaChange(index, e.target.files[0], oIndex)}
+                          className={styles.input}
+                          accept="image/*,video/*"
+                        />
+                      </label>
+                      
+                    ))}
+                    <button type='button' onClick={() => uploadMedia(index)}>Upload Media</button>
+                  </div>
+                </>
+              )}
               <label className={styles.label}>
                 Answer:
                 <input
@@ -122,11 +183,14 @@ export default function CreateQuiz() {
           <button type="button" onClick={() => handleAddQuestion('MCQ')} className={styles.button}>
             Add MCQ
           </button>
+          <button type="button" onClick={() => handleAddQuestion('MCQMedia')} className={styles.button}>
+            Add MCQ with Media
+          </button>
           <button type="button" onClick={() => handleAddQuestion('Blank')} className={styles.button}>
             Add Fill in the Blanks
           </button>
         </div>
-        <button type="submit" className={styles.submitButton}>Submit Quiz</button>
+        <button type="submit" className={styles.submitButton} onClick={(e) => handleSubmit(e)}>Submit Quiz</button>
       </form>
     </div>
   );

@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from "../../lib/postgres/prisma";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -20,7 +18,8 @@ export default async function handler(req, res) {
                 question_text: question.question,
                 answer: question.answer,
                 options: question.options ? question.options.join(',') : '', 
-                type: question.type
+                type: question.type,
+                mediaLink: question.mediaLink
               }))
             }
           }

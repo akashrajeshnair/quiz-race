@@ -43,8 +43,9 @@ model Question{
   answer String
   options String
   type String
-  quiz Quiz @relation(fields: [q_id], references: [q_id])
+  quiz Quiz @relation(fields: [q_id], references: [q_id], onDelete: Cascade)
   q_id Int
+  mediaLink String @default(" ")
 }
 
 model UserStatistics {
@@ -57,4 +58,3 @@ model UserStatistics {
   quiz Quiz @relation(fields: [q_id], references: [q_id])
   q_id Int
 }
-

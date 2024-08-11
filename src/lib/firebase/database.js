@@ -1,5 +1,5 @@
 import {db} from "./firebase"
-import { ref, set, get } from 'firebase/database'
+import { ref, set, get, remove } from 'firebase/database'
 
 export const startQuiz = async (quizId) => {
     try {
@@ -10,6 +10,16 @@ export const startQuiz = async (quizId) => {
         console.error(err);
     }
 };
+
+export const stopQuiz = async (quizId) => {
+    try {
+        const quizRef = ref(db, 'quizzes/' + quizId);
+        await remove(quizRef);
+        console.log("Quiz stopped successfully!");
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 export const joinQuiz = async (quizId, playerId, email) => {
     try {

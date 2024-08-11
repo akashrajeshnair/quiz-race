@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import MCQComponent from '@/app/(components)/Quiz/MCQComponent';
 import BlankComponent from '@/app/(components)/Quiz/FillInTheBlanksComponent';
+import MCQMediaComponent from '@/app/(components)/Quiz/MCQMediaComponent'
 import Scoreboard from '@/app/(components)/Scoreboard/Scoreboard';
 import { updateScore, getScoreboard } from '@/lib/firebase/database';
 import styles from './QuizComponent.module.css';
@@ -110,6 +111,8 @@ const QuizComponent = ({ quizId, userId }) => {
   const renderQuestion = () => {
     if (!currentQuestion) return null;
 
+    console.log(currentQuestion.type)
+
     switch (currentQuestion.type) {
       case 'MCQ':
         return (
@@ -127,6 +130,15 @@ const QuizComponent = ({ quizId, userId }) => {
             onChange={(e) => handleSelect(currentQuestionIndex, e.target.value)}
           />
         );
+      case 'MCQMedia':
+        return(
+        <MCQMediaComponent
+          question={currentQuestion.question_text}
+          options={currentQuestion.options.split(',')}
+          mediaLinks = {currentQuestion.mediaLink}
+          onSelect={(answer) => handleSelect(currentQuestionIndex, answer)}
+        />
+      );
       default:
         return <div>Unknown question type</div>;
     }
