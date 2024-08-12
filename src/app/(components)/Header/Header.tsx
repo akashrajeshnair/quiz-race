@@ -46,7 +46,7 @@ const Header: React.FC = () => {
         {admin ? (
           <ul>
             <li>
-              <Link href="/admin">Home</Link>
+              <Link href="/">Home</Link>
             </li>
             <li>
               <Link href="/quiz/create">Create Quiz</Link>
