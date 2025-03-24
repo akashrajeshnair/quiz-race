@@ -1,22 +1,20 @@
 Quiz Race - Multi-user Quiz App
 
 Features to be implemented:
-- [ ] Quiz Creation Feature
-- [ ] Quiz Participation Feature
-- [ ] Create Account Feature
-- [ ] Create Statistics Feature
-- [ ] Create Leaderboard Feature
-- [ ] Database Integration
-- [ ] Web Socket Integration
-- [ ] Create APIs
+- [x] Quiz Creation Feature
+- [x] Quiz Participation Feature
+- [x] Create Account Feature
+- [x] Create Statistics Feature
+- [x] Create Leaderboard Feature
+- [x] Database Integration
+- [x] Firebase Real-time Integration
+- [x] Create APIs
   
 Frontend: 
 - NextJS - Full Stack Framework - Routing, Authentication
 - TailwindCSS - UI Library
-- Prisma - Object Relational Mapper to communicate with database
-- Web socket package(ws / Socket.io) - real-time functionality
+- Firebase - real-time functionality
 
 Backend:
-- NodeJS - JavaScript runtime on server
-- Express - to create APIs
+- Prisma - Object Relational Mapper to communicate with database
 - PostgreSQL - relational database
