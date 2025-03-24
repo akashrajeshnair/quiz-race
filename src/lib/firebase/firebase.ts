@@ -3,18 +3,19 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
 import { getStorage } from 'firebase/storage'
+import dotenv from 'dotenv'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+dotenv.config();
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCzRPsCCWV9Z47ov-tmMhB688aOGi8a_no",
-  authDomain: "quiz-race-170f0.firebaseapp.com",
-  projectId: "quiz-race-170f0",
-  storageBucket: "gs://quiz-race-170f0.appspot.com",
-  messagingSenderId: "197638830458",
-  appId: "1:197638830458:web:553ef6e6a99784ff2afec3",
-  databaseURL: "https://quiz-race-170f0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  databaseURL: process.env.REACT_APP_DATABASE_URL
 };
 
 // Initialize Firebase
